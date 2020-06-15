@@ -1,6 +1,10 @@
 namespace stage2 {
 namespace numberparsing {
 
+namespace {
+  using namespace simdjson::numberparsing_common;
+}
+
 // Attempts to compute i * 10^(power) exactly; and if "negative" is
 // true, negate the result.
 // This function will only work in some cases, when it does not work, success is
@@ -319,7 +323,7 @@ never_inline bool parse_large_integer(const uint8_t *const src,
       writer.append_u64(i);
     }
   }
-  return is_structural_or_whitespace(*p);
+  return internal::is_structural_or_whitespace(*p);
 }
 
 template<typename W>
@@ -556,7 +560,7 @@ really_inline bool parse_number(UNUSED const uint8_t *const src,
     found_integer(i, src);
 #endif
   }
-  return is_structural_or_whitespace(*p);
+  return internal::is_structural_or_whitespace(*p);
 #endif // SIMDJSON_SKIPNUMBERPARSING
 }
 
